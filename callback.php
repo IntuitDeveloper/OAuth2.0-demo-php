@@ -1,17 +1,9 @@
 <?php
 
 require_once(__DIR__ . '/vendor/autoload.php');
-
 use QuickBooksOnline\API\DataService\DataService;
 
-function __autoload($className) {
-    $file = PATH_TO_FOLDER_WITH_ALL_CLASS_FILES."/".$className.'.php';
-    if(file_exists($file)) {
-        require_once $file;
-    }
-}
 session_start();
-
 
 function processCode()
 {

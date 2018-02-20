@@ -1,18 +1,9 @@
 <?php
 
 require_once(__DIR__ . '/vendor/autoload.php');
-
 use QuickBooksOnline\API\DataService\DataService;
 
-
-function __autoload($className) {
-    $file = PATH_TO_FOLDER_WITH_ALL_CLASS_FILES."/".$className.'.php';
-    if(file_exists($file)) {
-        require_once $file;
-    }
-}
 session_start();
-
 
 function makeAPICall()
 {
@@ -28,7 +19,14 @@ function makeAPICall()
         'baseUrl' => "development"
     ));
 
+    /*
+     * Retrieve the accessToken value from session variable
+     */
     $accessToken = $_SESSION['sessionAccessToken'];
+
+    /*
+     * Update the OAuth2Token of the dataService object
+     */
     $dataService->updateOAuth2Token($accessToken);
     $companyInfo = $dataService->getCompanyInfo();
 

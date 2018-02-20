@@ -5,13 +5,6 @@ use QuickBooksOnline\API\DataService\DataService;
 
 $config = include('config.php');
 
-function __autoload($className) {
-    $file = PATH_TO_FOLDER_WITH_ALL_CLASS_FILES."/".$className.'.php';
-    if(file_exists($file)) {
-        require_once $file;
-    }
-}
-
 session_start();
 
 $dataService = DataService::Configure(array(
@@ -62,12 +55,10 @@ if (isset($_SESSION['sessionAccessToken'])) {
     <script>
 
         var url = '<?php echo $authUrl; ?>';
-        var config = {
-            authUri: url,
-            redirectUri: '<?php echo $_ENV['RC_Redirect_Url']; ?>'
-        }
-        var OAuthCode = function(config) {
-            this.config = config;
+        // var config = {
+        //     authUri: url
+        // }
+        var OAuthCode = function(url) {
 
             this.loginPopup = function (parameter) {
                 this.loginPopupUri(parameter);
@@ -79,7 +70,7 @@ if (isset($_SESSION['sessionAccessToken'])) {
                 var parameters = "location=1,width=800,height=650";
                 parameters += ",left=" + (screen.width - 800) / 2 + ",top=" + (screen.height - 650) / 2;
 
-                var win = window.open(config.authUri, 'connectPopup', parameters);
+                var win = window.open(url, 'connectPopup', parameters);
                 var pollOAuth = window.setInterval(function () {
                     try {
 
@@ -110,7 +101,7 @@ if (isset($_SESSION['sessionAccessToken'])) {
             }
         }
 
-        var oauth = new OAuthCode(config);
+        var oauth = new OAuthCode(url);
         var apiCall = new apiCall();
     </script>
 </head>
