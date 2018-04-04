@@ -36,7 +36,6 @@ if (isset($_SESSION['sessionAccessToken'])) {
     $dataService->updateOAuth2Token($accessToken);
     $oauthLoginHelper = $dataService -> getOAuth2LoginHelper();
     $CompanyInfo = $dataService->getCompanyInfo();
-
 }
 
 ?>
@@ -76,7 +75,7 @@ if (isset($_SESSION['sessionAccessToken'])) {
 
                         if (win.document.URL.indexOf("code") != -1) {
                             window.clearInterval(pollOAuth);
-                            win.close();
+                            // win.close();
                             location.reload();
                         }
                     } catch (e) {
@@ -97,6 +96,15 @@ if (isset($_SESSION['sessionAccessToken'])) {
                     url: "apiCall.php",
                 }).done(function( msg ) {
                     $( '#apiCall' ).html( msg );
+                });
+            }
+
+            this.refreshToken = function() {
+                $.ajax({
+                    type: "POST",
+                    url: "refreshToken.php",
+                }).done(function( msg ) {
+                
                 });
             }
         }
@@ -128,10 +136,11 @@ if (isset($_SESSION['sessionAccessToken'])) {
 
     <h2>OAuth2.0</h2><h4>( Please refer to the <a target="_balnk" href="https://developer.intuit.com/docs/00_quickbooks_online/2_build/10_authentication_and_authorization/10_oauth_2.0">OAuth2.0 Documentation</a> )</h4>
     <p>If there is no access token or the access token is invalid, click the <b>Connect to QuickBooks</b> button below.</p>
-    <pre>
+    <pre id="accessToken">
         <style="background-color:#efefef;overflow-x:scroll"><?php echo json_encode($accessTokenJson, JSON_PRETTY_PRINT); ?>
     </pre>
     <a class="imgLink" href="#" onclick="oauth.loginPopup()"><img src="views/C2QB_green_btn_lg_default.png" width="178" /></a>
+    <button  type="button" class="btn btn-success" onclick="apiCall.refreshToken()">Refresh Token</button>
     <hr />
 
 
