@@ -54,9 +54,7 @@ if (isset($_SESSION['sessionAccessToken'])) {
     <script>
 
         var url = '<?php echo $authUrl; ?>';
-        // var config = {
-        //     authUri: url
-        // }
+
         var OAuthCode = function(url) {
 
             this.loginPopup = function (parameter) {

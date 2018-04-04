@@ -17,7 +17,7 @@ This sample app is meant to showcase an example of how to integrate your app wit
 ### Via Github Repo (Recommended)
 
 ```bash
-$ https://github.com/IntuitDeveloper/OAuth2.0-demo-php
+$ git clone https://github.com/IntuitDeveloper/OAuth2.0-demo-php.git
 $ cd OAuth2.0-demo-php
 $ curl -sS https://getcomposer.org/installer | php
 $ composer install
